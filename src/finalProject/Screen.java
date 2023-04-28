@@ -122,6 +122,18 @@ public class Screen {
                 else color = (textures.get(texNum).pixels[texX + (texY * textures.get(texNum).SIZE)]>>1) & 8355711;//Make y sides darker
                 pixels[x + y*(width)] = color;
             }
+
+            // draw crosshair
+            if(x > width/2 - 15 && x < width/2 + 15) {
+                for(int y = 0; y < height; y++) {
+                    if((y > height/2 - 15 && y < height/2 + 15) && (x > width/2 - 2 && x < width/2 + 2)) {
+                        pixels[y*(width) + x] = -65536;
+                    }
+                    if(y > height/2 - 2 && y < height/2 + 2) {
+                        pixels[y*(width) + x] = -65536;
+                    }
+                }  
+            }
         }
         
         return pixels;
