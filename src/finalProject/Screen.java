@@ -7,15 +7,18 @@ public class Screen {
 	public int[][] map;
     public int mapWidth, mapHeight, width, height;
     public ArrayList<Texture> textures;
+    public int crosshairWidth;
     
     public Screen(int[][] m, int mapW, int mapH, ArrayList<Texture> tex, int w, int h) {
         map = m;
         textures = tex;
         width = w;
         height = h;
+        crosshairWidth = 2;
     }
     
-    public int[] update(Camera camera, int[] pixels) {
+    public int[] update(Camera camera, int[] pixels, int[][] m) {
+        map = m;
         for(int n=0; n<pixels.length/2; n++) {
             if(pixels[n] != Color.DARK_GRAY.getRGB()) pixels[n] = Color.DARK_GRAY.getRGB();
         }
@@ -126,10 +129,10 @@ public class Screen {
             // draw crosshair
             if(x > width/2 - 15 && x < width/2 + 15) {
                 for(int y = 0; y < height; y++) {
-                    if((y > height/2 - 15 && y < height/2 + 15) && (x > width/2 - 2 && x < width/2 + 2)) {
+                    if((y > height/2 - 15 && y < height/2 + 15) && (x > width/2 - crosshairWidth && x < width/2 + crosshairWidth)) {
                         pixels[y*(width) + x] = -65536;
                     }
-                    if(y > height/2 - 2 && y < height/2 + 2) {
+                    if(y > height/2 - crosshairWidth && y < height/2 + crosshairWidth) {
                         pixels[y*(width) + x] = -65536;
                     }
                 }  
