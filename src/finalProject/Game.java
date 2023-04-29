@@ -19,7 +19,7 @@ public class Game extends JFrame implements Runnable{
 	private boolean running;
 	private BufferedImage image;
 	public int[] pixels;
-	public static int[][] map = 
+	public static int[][] map1 = 
 		{
 			{1,1,1,1,1,1,1,1,2,2,2,2,2,2,2},
 			{1,0,0,0,0,0,0,0,2,0,0,0,0,0,2},
@@ -37,6 +37,25 @@ public class Game extends JFrame implements Runnable{
 			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
 			{1,1,1,1,1,1,1,4,4,4,4,4,4,4,4}
 		};
+	public static int[][] map2 = 
+		{
+			{4,4,4,4,4,4,4,4,3,3,3,3,3,3,3},
+			{4,0,0,0,0,0,0,0,3,0,0,0,0,0,3},
+			{4,0,2,2,2,2,2,0,0,0,0,0,0,0,3},
+			{4,0,2,0,0,0,2,0,3,0,0,0,0,0,3},
+			{4,0,2,0,0,0,2,0,3,3,3,1,3,3,3},
+			{4,0,2,0,0,0,2,0,3,0,0,0,0,0,3},
+			{4,0,2,2,0,2,2,0,3,0,0,0,0,0,3},
+			{4,0,0,0,0,0,0,0,3,0,0,0,0,0,3},
+			{4,4,4,4,4,4,4,4,1,1,1,0,1,1,1},
+			{4,0,0,0,0,0,4,1,0,0,0,0,0,0,1},
+			{4,0,0,0,0,0,4,1,0,0,0,0,0,0,1},
+			{4,0,0,3,0,0,4,1,0,0,0,0,0,0,1},
+			{4,0,0,0,0,0,4,1,0,0,0,0,0,0,1},
+			{4,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+			{4,4,4,4,4,4,4,1,1,1,1,1,1,1,1}
+		};
+	public static int[][] map;
 	
 	public ArrayList<Texture> textures;
 	
@@ -52,6 +71,7 @@ public class Game extends JFrame implements Runnable{
 		thread = new Thread(this);
 		image = new BufferedImage(screenW, screenH, BufferedImage.TYPE_INT_RGB);
 		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+		map = map2;
 		textures = new ArrayList<Texture>();
 		textures.add(Texture.texture1);
 		textures.add(Texture.texture2);
@@ -109,7 +129,7 @@ public class Game extends JFrame implements Runnable{
 			while (delta >= 1)//Make sure update is only happening 60 times a second
 			{
 				//handles all of the logic restricted time
-				screen.update(camera, pixels);
+				screen.update(camera, pixels, map);
 				camera.update(map);
 				delta--;
 			}
@@ -117,6 +137,14 @@ public class Game extends JFrame implements Runnable{
 		}
 		
 		
+	}
+	
+	public static void swapMap() {
+		if(map == map1) {
+			map = map2;
+		} else {
+			map = map1;
+		}
 	}
 	
 	public static void main(String [] args) {

@@ -52,7 +52,6 @@ public class Camera implements KeyListener{
 	}
 
 	public void keyTyped(KeyEvent e) {
-		
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -64,6 +63,9 @@ public class Camera implements KeyListener{
 			forward = true;
 		if(e.getKeyCode() == KeyEvent.VK_S)
 			back = true;
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			Game.swapMap();
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {
